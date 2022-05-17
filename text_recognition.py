@@ -45,7 +45,7 @@ def aaa(path):
 
     result = makeParagraphs(word_data_map, data)
 
-    return result
+    return result.values()
 
 
 def makeParagraphs(word_data_map, data):
