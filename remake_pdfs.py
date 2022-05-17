@@ -1,5 +1,6 @@
 import os
 from PyPDF2 import PdfFileReader, PdfFileWriter
+from pdf2image import convert_from_path
 
 your_target_folder = "training_data"
 pdf_files = []
@@ -14,12 +15,22 @@ pdf_files.sort(key=str.lower)
 for file_path in pdf_files:
     writer = PdfFileWriter()
     reader = PdfFileReader(file_path)
-    page = reader.getPage(0)
-    var = page.mediaBox
-    page.mediaBox.upperLeft=(0,15)
-    page.mediaBox.upperRight=(0,15)
+    left_page = reader.getPage(0)
+    try:
+        right_page = reader.getPage(1)
+    except:
+        print("lol")
     #page.scaleBy(0.1)
-    writer.addPage(page)
-
+    writer.addPage(left_page)
+    writer.addPage(right_page)
     with open(f"{file_path}", "wb") as output:
         writer.write(output)
+
+    image = convert_from_path(file_path)
+    folder_name = file_path + "_folder"
+    os.makedirs(folder_name)
+    number=1
+    for i in image:
+        i.save(f"{folder_name}/{number}.jpg", "JPEG")
+        print(folder_name+" "+str(number)+" has been converted to jpeg")
+        number+=1
