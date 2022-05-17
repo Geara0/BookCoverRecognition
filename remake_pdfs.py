@@ -32,5 +32,5 @@ for file_path in pdf_files:
     number=1
     for i in image:
         i.save(f"{folder_name}/{number}.jpg", "JPEG")
-        number+=1
         print(folder_name+" "+str(number)+" has been converted to jpeg")
+        number+=1
