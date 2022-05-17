@@ -22,8 +22,63 @@ def aaa(path):
     img = cv2.imread(path)
     img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
-    config = r'--oem 3 --psm 6'
+    config = r'--oem 3 --psm 3'
     data = pytesseract.image_to_data(img, lang="rus", config=config, output_type=Output.DICT)
+    word_data_map = []
+    for i in range(len(data['text'])):
+        if i < 4:
+            continue
+        word_data_map.append({
+            "level": data["level"][i],
+            "page_num": data["page_num"][i],
+            "block_num": data["block_num"][i],
+            "par_num": data["par_num"][i],
+            "line_num": data["line_num"][i],
+            "word_num": data["word_num"][i],
+            "left": data["left"][i],
+            "top": data["top"][i],
+            "width": data["width"][i],
+            "height": data["height"][i],
+            "conf": data["conf"][i],
+            "text": data["text"][i],
+        })
+
+    result = makeParagraphs(word_data_map, data)
+
+    return result
+
+
+def makeParagraphs(word_data_map, data):
+    paragraphs = dict.fromkeys(data["block_num"])
+    word_data_map.sort(key=lambda x: x["block_num"])
+    par_num = -1
+    first_word = {"left": -10, "top": -10}
+    last_word = {"left": -9, "top": -9}
+    text = [" "]
+    for line in word_data_map:
+        if par_num == line["block_num"]:
+            text.append(line["text"])
+            last_word = line
+        else:
+            if par_num != -1:
+                paragraphs[par_num] = {"text": " ".join([str(item) for item in text]),
+                                       "top": first_word["top"],
+                                       "left": first_word["left"],
+                                       "height": last_word["top"] - first_word["top"] + last_word["height"],
+                                       "width": last_word["left"] - first_word["left"] + last_word["width"]}
+            par_num = line["block_num"]
+            first_word = line
+            text.clear()
+
+    return paragraphs
+
+
+def aaaIMG(img):
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+
+    config = r'--oem 3 --psm 3'
+    data = pytesseract.image_to_data(img, lang="rus", config=config, output_type=Output.DICT)
+    data = pytesseract.image_to_data()
     word_data_map = []
     for i in range(len(data['text'])):
         if i < 4:
