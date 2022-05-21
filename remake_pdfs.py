@@ -27,7 +27,7 @@ for file_path in pdf_files:
         writer.write(output)
 
     image = convert_from_path(file_path)
-    folder_name = file_path + "_folder"
+    folder_name, file_ext = os.path.splitext(file_path)
     os.makedirs(folder_name)
     number=1
     for i in image:
