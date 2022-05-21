@@ -2,7 +2,7 @@ import cv2
 import pytesseract
 from pytesseract import Output
 
-pytesseract.pytesseract.tesseract_cmd = "C:\\Program Files\\Tesseract-OCR\\tesseract.exe"
+pytesseract.pytesseract.tesseract_cmd = "D:\\Program Files\\Tesseract-OCR\\tesseract.exe"
 
 
 # работать мы будем с русскими доками, поэтому пока язык просто русский, потом сделаем чтобы можно было выбирать
@@ -23,7 +23,7 @@ def read_paragraphs_from_picture(path):
     read_paragraphs_from_picture_IMG(img)
 
 
-def __makeParagraphs(word_data_map, data):
+def __make_paragraphs(word_data_map, data):
     paragraphs = dict.fromkeys(data["block_num"])
     word_data_map.sort(key=lambda x: x["block_num"])
     par_num = -1
@@ -72,6 +72,6 @@ def read_paragraphs_from_picture_IMG(img):
             "text": data["text"][i],
         })
 
-    result = makeParagraphs(word_data_map, data)
+    result = __make_paragraphs(word_data_map, data)
 
     return result.values()
