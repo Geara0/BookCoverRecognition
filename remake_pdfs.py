@@ -27,9 +27,11 @@ for file_path in pdf_files:
 
     image = convert_from_path(file_path)
     folder_name, file_ext = os.path.splitext(file_path)
+    folder_name= folder_name.replace(" ", "_")
+    folder_name= folder_name.replace(".", "_")
     os.makedirs(folder_name)
     number = 1
     for i in image:
         i.save(f"{folder_name}/{number}.jpg", "JPEG")
-        print(folder_name + " " + str(number) + " has been converted to jpeg")
+        print(folder_name + "\\" + str(number) + " has been converted to jpeg")
         number += 1
