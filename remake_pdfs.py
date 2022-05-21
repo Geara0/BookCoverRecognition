@@ -29,6 +29,7 @@ for file_path in pdf_files:
     folder_name, file_ext = os.path.splitext(file_path)
     folder_name= folder_name.replace(" ", "_")
     folder_name= folder_name.replace(".", "_")
+    folder_name= folder_name.replace(",", "_")
     os.makedirs(folder_name)
     number = 1
     for i in image:
