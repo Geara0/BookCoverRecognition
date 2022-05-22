@@ -4,7 +4,7 @@ import pytesseract
 import matplotlib.pyplot as plt
 from pytesseract import Output
 
-pytesseract.pytesseract.tesseract_cmd = "C:\Program Files\Tesseract-OCR\\tesseract.exe"
+pytesseract.pytesseract.tesseract_cmd = "D:\Program Files\Tesseract-OCR\\tesseract.exe"
 
 
 # возвращает массив со словарями, каждый содержит поля :
