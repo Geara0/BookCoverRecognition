@@ -19,11 +19,17 @@ def collective(text):
     else:
         isbn = None
 
-    authors = re.search(r"(?<=Авторы:).+?(?=[/(\r\n)])", text)
+    authors = re.search(r"(?<=Авторы:(\r\n)).+?(?=[/(\r\n)])", text)
+    if not authors:
+        authors = re.search(r"(?<=Авторы:).+?(?=[/(\r\n)])", text)
     if authors:
         authors = authors.group(0).strip()
+    if authors == '':
+        authors = None
 
     name = re.search(r".+(?=колл)(?=.*моно)", text, re.IGNORECASE)
+    if not name:
+        name = re.search(r".+(?=моно)", text, re.IGNORECASE)
     if name:
         name = name.group(0).strip()
 
@@ -47,15 +53,23 @@ def regular(text):
     isbn = set(re.findall(r"\s[\d\-—]{13}\s|\s[\d\-—]{17}\s", text))
     if isbn:
         isbn = ' '.join([i.strip() for i in isbn])
-    authors = re.search(r"(?<=/ ).+(?= [\-–—])", text)
+    else:
+        isbn = None
+
+    authors = re.search(r"(?<=/ ).+(?= [/\-–—])", text)
     if authors:
         authors = authors.group(0).strip()
+    if authors == '':
+        authors = None
+
     name = re.search(rf"(?<=\d\d).*(?=/ {authors})", text, re.IGNORECASE)
     if name:
         name = name.group(0).strip()
+
     pages = re.search(r"(?<= [\-–—] )\d{2,3}(?= с\.)", text)
     if pages:
         pages = pages.group(0).strip()
+
     year = re.search(r"\d{4}(?=\.? [\-–—] )", text)
     publisher = None
     if year:

@@ -10,9 +10,18 @@ def none_count(arr):
     return c
 
 
+def join(a, b):
+    res = []
+    for i in range(len(a)):
+        if not a[i]:
+            res.append(b[i])
+        else:
+            res.append(a[i])
+    return res
+
+
 path = "D:\\Programming\\Python\\BookCoverRecognition\\training_data"
-paragraphs = []
-answ = []
+answ = {}
 for _, dirs, _ in os.walk(path):
     for dir_ in dirs:
         try:
@@ -22,10 +31,13 @@ for _, dirs, _ in os.walk(path):
             if "монограф" in text:
                 res1 = monography_parser.collective(text)
                 res2 = monography_parser.regular(text)
-                res = res2 if none_count(res1) < none_count(res2) else res1
+                # res = res2 if none_count(res1) <= none_count(res2) else res1
 
-            answ.append(res)
+                answ[dir_] = join(res1, res2)
+
         except:
             print(f"{dir_}\\2.jpg")
 
-print(paragraphs)
+print(answ)
+for i in answ:
+    print(i, ":", answ[i])
