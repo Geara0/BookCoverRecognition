@@ -4,9 +4,10 @@ import pdf2image
 from PyPDF2 import PdfFileReader, PdfFileWriter
 from pdf2image import convert_from_path
 
-source_folder = r"C:\coding\python\BookCoverRecognition\training_data"
+
+path = "/working_data"
 pdf_files = []
-for dir_path, _, filenames in os.walk(source_folder):
+for dir_path, _, filenames in os.walk(path):
     for items in filenames:
         file_full_path = os.path.abspath(os.path.join(dir_path, items))
         if file_full_path.lower().endswith(".pdf"):

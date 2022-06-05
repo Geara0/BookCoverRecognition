@@ -4,8 +4,6 @@ import pytesseract
 import matplotlib.pyplot as plt
 from pytesseract import Output
 
-pytesseract.pytesseract.tesseract_cmd = "C:\\Program Files\\Tesseract-OCR\\tesseract.exe"
-
 
 # возвращает массив со словарями, каждый содержит поля :
 # level, page_num, block_num, par_num, line_num, word_num, left,top, width, height, conf, text
