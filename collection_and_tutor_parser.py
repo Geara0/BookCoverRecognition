@@ -65,7 +65,7 @@ def tutorial(text):
 # if __name__ == "__main__":
 #     data_path = r"C:\coding\python\BookCoverRecognition\training_data\Инфомационные_технологии_в_исседований_биоразнообразия\2.jpg"
 #     # data_path = r"C:\coding\python\BookCoverRecognition\training_data\Проблемы_теоретической_и_экспериментальной_химии__Сборник\2.jpg"
-#     # data_path = r"C:\coding\python\BookCoverRecognition\training_data\Физика_космоса\1.jpg"
+#     # data_path = r"C:\coding\python\BookCoverRecognition\training_data\Физика_космоса\2.jpg"
 #     t = vectorize(text_recognition.read_paragraphs_from_picture(data_path))
 #     data = collections(t)
 

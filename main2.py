@@ -33,8 +33,10 @@ def vectorize(source_text):
     return "\r\n".join(data)
 
 
-path = "D:\\Programming\\Python\\BookCoverRecognition\\training_data"
+path = r"C:\coding\python\BookCoverRecognition\training_data"
 answ = {}
+all = 0
+success = 0
 for _, dirs, _ in os.walk(path):
     for dir_ in dirs:
         try:
@@ -45,19 +47,26 @@ for _, dirs, _ in os.walk(path):
                 res1 = monography_parser.collective(text)
                 res2 = monography_parser.regular(text)
                 # res = res2 if none_count(res1) <= none_count(res2) else res1
-
+                success += 1
                 answ[dir_] = join(res1, res2)
 
-            if "сборник" in text:
+            elif "сборник" in text:
                 res = collection_and_tutor_parser.collections(text)
                 answ[dir_] = res
-            if "пособие" in text or "лабораторный практикум" in text:
+                success += 1
+            elif "пособие" in text or "лабораторный практикум" in text:
                 res = collection_and_tutor_parser.tutorial(text)
                 answ[dir_] = res
+                success += 1
+            else:
+                print(dir_)
 
         except:
             print(f"{dir_}\\2.jpg")
 
+        all += 1
+
+print(success/all)
 print(answ)
 for i in answ:
     print(i, ":", answ[i])
