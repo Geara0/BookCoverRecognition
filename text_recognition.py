@@ -4,8 +4,6 @@ import pytesseract
 import matplotlib.pyplot as plt
 from pytesseract import Output
 
-pytesseract.pytesseract.tesseract_cmd = "C:\\Program Files\\Tesseract-OCR\\tesseract.exe"
-
 
 # возвращает массив со словарями, каждый содержит поля :
 # level, page_num, block_num, par_num, line_num, word_num, left,top, width, height, conf, text
@@ -68,3 +66,12 @@ def read_paragraphs_from_picture_IMG(img):
     result = __make_paragraphs(word_data_map, data)
 
     return list(result.values())
+
+
+if __name__ == "__main__":
+    path = r'C:\coding\python\BookCoverRecognition\page.png'
+    img = plt.imread(path)
+    img = img[..., ::-1]
+    config = r'--oem 3 --psm 3'
+    data = pytesseract.image_to_string(img, config=config)
+    print(data)

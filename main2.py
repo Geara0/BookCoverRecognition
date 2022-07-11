@@ -33,7 +33,7 @@ def vectorize(source_text):
     return "\r\n".join(data)
 
 
-path = r"C:\coding\python\BookCoverRecognition\training_data"
+path = r"C:\coding\python\BookCoverRecognition\working_data"
 answ = {}
 all = 0
 success = 0
@@ -67,6 +67,8 @@ for _, dirs, _ in os.walk(path):
         all += 1
 
 print(success/all)
-print(answ)
+result = []
 for i in answ:
-    print(i, ":", answ[i])
+    result.append(str(i) + ':' + str(answ[i]))
+f = open("result.txt", "w", encoding="UTF-8")
+f.write("\r\n".join(result))
